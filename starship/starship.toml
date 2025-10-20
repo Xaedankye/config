@@ -1,0 +1,124 @@
+# [metadata]
+# name = "terafox"
+# author = "wjohnsto"
+
+"$schema" = "https://starship.rs/config-schema.json"
+
+# Add spaces between modules in the main format string to separate the bubbles.
+# Note that git_branch and git_status have NO space, so they form a single bubble.
+format = """
+$os\
+$directory\
+$git_branch$git_status\
+$python\
+$nodejs\
+$rust\
+$golang\
+$fill\
+$time\
+$line_break\
+\n$character"""
+
+palette = "terafox"
+
+[palettes.terafox]
+red = "#e85c51"
+green = "#7aa4a1"
+purple = "#9f31e2"
+yellow = "#fda47f"
+blue = "#5a93aa"
+background = "#35312c"
+foreground = "#d4d4d4"
+
+os_bg = "#587b7b"
+os_fg = "#0f1c1e"
+dir_bg = "#9f31e2"
+dir_fg = "#152528"
+git_bg = "#fda47f"
+git_fg = "#1d3337"
+lang_bg = "#5a93aa"
+lang_fg = "#254147"
+time_bg = "#44403a" # A slightly different background for the time bubble
+time_fg = "#777777"
+
+# --- Module Configuration ---
+# Each module now creates its own bubble using  (left) and  (right).
+# The foreground color of the glyphs is set to the module's background color.
+
+[os]
+disabled = false
+style = "bg:os_bg fg:os_fg"
+format = "[](fg:os_bg)[ $symbol ]($style)[](fg:os_bg) "
+
+[os.symbols]
+Arch = "󰣇"
+Linux = "󰌽"
+# Add others here
+
+[directory]
+style = "bg:dir_bg fg:dir_fg"
+format = "[](fg:dir_bg)[  $path ]($style)[](fg:dir_bg) "
+truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+# --- Git Bubble (Combined) ---
+# git_branch creates the left side of the bubble.
+[git_branch]
+symbol = ""
+style = "bg:git_bg fg:git_fg"
+format = "[](fg:git_bg)[ $symbol $branch ]($style)"
+
+# git_status creates the right side, completing the single git bubble.
+[git_status]
+style = "bg:git_bg fg:git_fg"
+format = '[($all_status$ahead_behind) ]($style)[](fg:git_bg) '
+modified = "!"
+staged = "+"
+untracked = "?"
+deleted = "✘"
+
+[fill]
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%I:%M %p"
+style = "bg:time_bg fg:time_fg"
+format = "[](fg:time_bg)[  $time ]($style)[](fg:time_bg)"
+
+# --- Language Bubbles ---
+# A consistent format for all language modules.
+
+[nodejs]
+symbol = ""
+style = "bg:lang_bg fg:lang_fg"
+format = "[](fg:lang_bg)[ $symbol $version ]($style)[](fg:lang_bg) "
+
+[rust]
+symbol = ""
+style = "bg:lang_bg fg:lang_fg"
+format = "[](fg:lang_bg)[ $symbol $version ]($style)[](fg:lang_bg) "
+
+[golang]
+symbol = ""
+style = "bg:lang_bg fg:lang_fg"
+format = "[](fg:lang_bg)[ $symbol $version ]($style)[](fg:lang_bg) "
+
+[python]
+symbol = ""
+style = "bg:lang_bg fg:lang_fg"
+format = "[](fg:lang_bg)[ $symbol $version ]($style)[](fg:lang_bg) "
+
+# --- Character ---
+[character]
+disabled = false
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold green)'
